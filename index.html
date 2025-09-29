@@ -8,22 +8,26 @@
 </head>
 
 <body>
-
   <div class="divider">
     <canvas id="canvas"></canvas>
     <form id="field_set">
-      <fieldset >
+      <fieldset>
         <legend>General Settings</legend>
         <p>
           Draw line: <input type="checkbox" id="show_lines" />
         </p>
         <p>
-          Speed: <input type="range" min="0" max="100" value="50" id="speed" onchange="SetSpeed(this.value)">
+          Speed: <input type="range" min="0" max="100" value="50" id="speed">
+        </p>
+        <p>
+          Fade speed: <input type="range" min="0.01" max="0.5" step="0.01" value="0.01" id="fade_speed">
+        </p>
+        <p>
+          Decolor speed: <input type="range" min="0" max="100" value="50" id="decolor_speed">
         </p>
       </fieldset>
     </form>
   </div>
   <script type="module" src="/main.js"></script>
 </body>
-
 </html>

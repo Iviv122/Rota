@@ -48,6 +48,17 @@ function Draw() {
 function SetSpeed(e) {
     speed_update = e
 }
+function SetFadeSpeed(e) {
+    drawer.SetFadeSpeed(e)
+}
+function SetDecolorSpeed(e){
+    drawer.SetDecolorSpeed(e)
+}
+
+document.getElementById('speed').addEventListener('input', (e) => SetSpeed(e.target.value));
+document.getElementById('fade_speed').addEventListener('input', (e) => SetFadeSpeed(e.target.value));
+document.getElementById('decolor_speed').addEventListener('input', (e) => SetDecolorSpeed(e.target.value));
+
 function AppendRoterSettings(rotor, ind, canremove) {
     const p = document.createElement("p");
 
@@ -91,8 +102,6 @@ function AppendRoterSettings(rotor, ind, canremove) {
         rotor.SetLength(slider_length.value);
     }
 
-
-
     p.appendChild(slider_speed);
     p.appendChild(document.createElement("br"));
     p.appendChild(slider_length);
@@ -106,7 +115,6 @@ function AddRotor() {
     AppendRoterSettings(r, rotors.length)
     rotors.push(r)
 }
-window.SetSpeed = SetSpeed;
 
 AddRotor()
 //AddRotor()
