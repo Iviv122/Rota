@@ -27,7 +27,6 @@ export class Drawer {
 
             ctx.stroke();
         }
-        console.log(this.color_points);
 
         for (let i = 0; i < this.color_points.length; i++) {
             this.color_points[i].s-=1;

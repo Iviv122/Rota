@@ -1,13 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Rota</title>
-  </head>
-  <body>
-    
-    
+
+<head>
+  <meta charset="utf-8">
+  <title>Rota</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="divider">
     <canvas id="canvas"></canvas>
-    <script type="module" src="/main.js"></script>
-  </body>
+    <form id="field_set">
+      <fieldset >
+        <legend>General Settings</legend>
+        <p>
+          Draw line: <input type="checkbox" id="show_lines" />
+        </p>
+        <p>
+          Speed: <input type="range" min="0" max="100" value="50" id="speed" onchange="SetSpeed(this.value)">
+        </p>
+      </fieldset>
+    </form>
+  </div>
+  <script type="module" src="/main.js"></script>
+</body>
+
 </html>

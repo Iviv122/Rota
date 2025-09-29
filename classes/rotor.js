@@ -13,9 +13,17 @@ export class Rotor {
 
         this.origin = origin;
         this.dir = dir;
+        // this.dir = new Vector2(0,1)
         this.rotation = rotation;
         this.endPoint = this.origin.Add(this.dir)
 
+    }
+    SetSpeed(v){
+        this.rotation = v
+    }
+    SetNewLength(){
+        // normolize
+        // multiply
     }
     Update(newOrigin = null) {
         if (newOrigin) {
