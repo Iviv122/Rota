@@ -21,9 +21,9 @@ export class Rotor {
     SetSpeed(v){
         this.rotation = v
     }
-    SetNewLength(){
-        // normolize
-        // multiply
+    SetLength(l){
+        this.dir.Normalize();
+        this.dir.Multiply(l);
     }
     Update(newOrigin = null) {
         if (newOrigin) {

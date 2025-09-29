@@ -18,7 +18,18 @@ export class Vector2 {
         this.y = ox*Math.sin(angle) + oy*Math.cos(angle);
        
     }
-
+    Magnitude(){
+        return Math.sqrt(this.x*this.x+this.y*this.y)
+    }
+    Normalize(){
+        const mag = this.Magnitude()
+        this.x=this.x/mag;
+        this.y=this.y/mag;
+    }
+    Multiply(a){
+        this.x*=a;
+        this.y*=a;
+    }
     Add(pos){
         return new Vector2(this.x+pos.x,this.y+pos.y)
     }
