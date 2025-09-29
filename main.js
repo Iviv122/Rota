@@ -12,7 +12,7 @@ canvas.height = window.innerHeight / 1.5;
 
 let rotors = [];
 
-const drawer = new Drawer()
+const drawer = new Drawer(4,0.01)
 
 const show_lines = document.getElementById("show_lines")
 show_lines.checked = true
@@ -52,7 +52,7 @@ function SetFadeSpeed(e) {
 function SetDecolorSpeed(e) {
     drawer.SetDecolorSpeed(e)
 }
-function AppendRoterSettings(rotor, ind) {
+function AppendRoterSettings(rotor,ind) {
 
     const p = document.createElement("p");
 
@@ -65,7 +65,7 @@ function AppendRoterSettings(rotor, ind) {
         delete_button.addEventListener("click", (e) => {
             e.preventDefault();
             p.remove();
-            rotors.splice(ind, 1);
+            rotors = rotors.filter(r => r.index !== ind)
         });
         delete_button.innerText = "X"
         p.appendChild(delete_button);
@@ -114,17 +114,19 @@ function AppendRoterSettings(rotor, ind) {
 
     field_set.appendChild(p);
 }
+var id = 0
 function AddRotor() {
     let r;
+    id += 1
     if (rotors.length == 0) {
 
-        r = new Rotor(new Vector2(canvas.width / 2, canvas.height / 2), new Vector2(0, 100), 0.1);
+        r = new Rotor(new Vector2(canvas.width / 2, canvas.height / 2), new Vector2(0, 100), 0.1,id);
     } else {
-        r = new Rotor(rotors[rotors.length - 1].endPoint, new Vector2(0, 10), 0.5);
+        r = new Rotor(rotors[rotors.length - 1].endPoint, new Vector2(0, 10), 0.5,id);
     }
 
     rotors.push(r)
-    AppendRoterSettings(r, rotors.length - 1)
+    AppendRoterSettings(r,id)
 }
 
 document.getElementById('speed').addEventListener('input', (e) => SetSpeed(e.target.value));

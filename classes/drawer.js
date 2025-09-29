@@ -10,8 +10,7 @@ export class Drawer {
     fade_speed = 0.01;
     decolor_speed = 1
 
-    constructor(color, decolor_speed = 1, fade_speed = 0.01) {
-        this.color = color
+    constructor(decolor_speed = 1, fade_speed = 0.01) {
         this.fade_speed = fade_speed
         this.decolor_speed = decolor_speed
     }
