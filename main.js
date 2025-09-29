@@ -2,17 +2,15 @@ import { Vector2 } from "./classes/Vector2.js";
 import { Drawer } from "./classes/drawer.js";
 import { Rotor } from "./classes/rotor.js";
 
-const cavnas = document.getElementById("canvas")
-const ctx = cavnas.getContext("2d")
+const canvas = document.getElementById("canvas")
+const ctx = canvas.getContext("2d")
 
 canvas.width = window.innerWidth / 1.5;
 canvas.height = window.innerHeight / 1.5;
 
 // origin, LITERALLY MUST HAVE :D
-const p1 = new Rotor(new Vector2(canvas.width / 2, canvas.height / 2), new Vector2(0, 100), 0.015);
 
 let rotors = [];
-rotors.push(p1)
 
 const drawer = new Drawer()
 
@@ -29,7 +27,7 @@ function Draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
     ctx.strokeStyle = "#000000";
-    p1.Update()
+    rotors[0].Update();
     for (let index = 1; index < rotors.length; index++) {
         rotors[index].Update(rotors[index - 1].endPoint);
     }
@@ -51,21 +49,28 @@ function SetSpeed(e) {
 function SetFadeSpeed(e) {
     drawer.SetFadeSpeed(e)
 }
-function SetDecolorSpeed(e){
+function SetDecolorSpeed(e) {
     drawer.SetDecolorSpeed(e)
 }
+function AppendRoterSettings(rotor, ind) {
 
-document.getElementById('speed').addEventListener('input', (e) => SetSpeed(e.target.value));
-document.getElementById('fade_speed').addEventListener('input', (e) => SetFadeSpeed(e.target.value));
-document.getElementById('decolor_speed').addEventListener('input', (e) => SetDecolorSpeed(e.target.value));
-
-function AppendRoterSettings(rotor, ind, canremove) {
     const p = document.createElement("p");
 
     p.style.border = "1px solid black";
     p.style.padding = "5px";
     p.style.display = "block";
 
+    if (rotors.length > 1) {
+        const delete_button = document.createElement("button")
+        delete_button.addEventListener("click", (e) => {
+            e.preventDefault();
+            p.remove();
+            rotors.splice(ind, 1);
+        });
+        delete_button.innerText = "X"
+        p.appendChild(delete_button);
+        p.appendChild(document.createElement("br"));
+    }
 
     const checkbox = document.createElement("input")
     checkbox.type = "checkbox"
@@ -74,8 +79,7 @@ function AppendRoterSettings(rotor, ind, canremove) {
     slider_speed.type = "range";
     slider_speed.min = 0;
     slider_speed.max = 1;
-    slider_speed.value = rotor.rotation;
-    slider_speed.step = 0.01
+
 
     slider_speed.oninput = () => {
         if (checkbox.checked) {
@@ -91,7 +95,8 @@ function AppendRoterSettings(rotor, ind, canremove) {
             rotor.rotation = slider_speed.value;
         }
     }
-
+    slider_speed.value = rotor.rotation;
+    slider_speed.step = 0.01
 
     const slider_length = document.createElement("input");
     slider_length.type = "range";
@@ -110,15 +115,27 @@ function AppendRoterSettings(rotor, ind, canremove) {
     field_set.appendChild(p);
 }
 function AddRotor() {
+    let r;
+    if (rotors.length == 0) {
 
-    const r = new Rotor(rotors[rotors.length - 1].endPoint, new Vector2(0, 10), 0.5);
-    AppendRoterSettings(r, rotors.length)
+        r = new Rotor(new Vector2(canvas.width / 2, canvas.height / 2), new Vector2(0, 100), 0.1);
+    } else {
+        r = new Rotor(rotors[rotors.length - 1].endPoint, new Vector2(0, 10), 0.5);
+    }
+
     rotors.push(r)
+    AppendRoterSettings(r, rotors.length - 1)
 }
 
+document.getElementById('speed').addEventListener('input', (e) => SetSpeed(e.target.value));
+document.getElementById('fade_speed').addEventListener('input', (e) => SetFadeSpeed(e.target.value));
+document.getElementById('decolor_speed').addEventListener('input', (e) => SetDecolorSpeed(e.target.value));
+document.getElementById('add').addEventListener('click', (e) => {
+    e.preventDefault()
+    AddRotor()
+});
+
 AddRotor()
-//AddRotor()
-//AddRotor()
-//AddRotor()
+AddRotor()
 
 Draw()
