@@ -2,6 +2,10 @@ import { Vector2 } from "./classes/Vector2.js";
 import { Drawer } from "./classes/drawer.js";
 import { Rotor } from "./classes/rotor.js";
 
+window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('field_set').reset();
+    });
+
 const canvas = document.getElementById("canvas")
 const ctx = canvas.getContext("2d")
 
@@ -71,7 +75,6 @@ function AppendRoterSettings(rotor,ind) {
         p.appendChild(delete_button);
         p.appendChild(document.createElement("br"));
     }
-
     const checkbox = document.createElement("input")
     checkbox.type = "checkbox"
 
