@@ -61,7 +61,6 @@ function AppendRoterSettings(rotor,ind) {
     const p = document.createElement("p");
 
     p.style.border = "1px solid black";
-    p.style.padding = "5px";
     p.style.display = "block";
 
     if (rotors.length > 1) {
@@ -82,7 +81,7 @@ function AppendRoterSettings(rotor,ind) {
     slider_speed.type = "range";
     slider_speed.min = 0;
     slider_speed.max = 1;
-
+    slider_speed.style.width = '100%';
 
     slider_speed.oninput = () => {
         if (checkbox.checked) {
@@ -106,6 +105,8 @@ function AppendRoterSettings(rotor,ind) {
     slider_length.min = 1;
     slider_length.value = 15;
     slider_length.max = 100;
+
+    slider_length.style.width = '100%';
     slider_length.oninput = () => {
         rotor.SetLength(slider_length.value);
     }

@@ -1,8 +1,15 @@
 .divider{
     display: flex;
 }
+input{
+    width: 100%;
+}
 .content{
     margin-left: 69.5vw;
     width: 20vw;
     position: absolute;
+}
+#add{
+    margin: 10px 0px;
+    width: 100%;
 }
