@@ -1,40 +1,42 @@
-import * as THREE from 'three';
+import { Color } from "./Color.js"
 
 export class Drawer {
 
     points = []
+    color_points = []
 
-    dir 
-    color 
+    color_index=1
 
-    material
-    geometry
-    line
-
-    clock = new THREE.Clock()
-    // Vector3, Vector3, Vector3 ,color (hex)
     constructor(color) {
+        this.color = color
+    }
+    Draw(vec2, ctx) {
+        this.points.push(vec2)
 
-        this.points = []
-        
-        this.color = color 
-        
-        this.material = new THREE.LineBasicMaterial( { color: color } );
-        
-        this.geometry = new THREE.BufferGeometry().setFromPoints(this.points);
-        
-        this.line = new THREE.Line( this.geometry, this.material ) 
+        this.color_points.push(new Color((this.color_index * 360 / 10) % 360,100,50))
+        this.color_index+=1
+
+        for (let index = 1; index < this.points.length; index++) {
+
+            ctx.beginPath();
+            ctx.strokeStyle = this.color_points[index].get();
+            ctx.moveTo(this.points[index - 1].x, this.points[index - 1].y);
+
+
+            ctx.lineTo(this.points[index].x, this.points[index].y);
+
+            ctx.stroke();
+        }
+        console.log(this.color_points);
+
+        for (let i = 0; i < this.color_points.length; i++) {
+            this.color_points[i].s-=1;
+            this.color_points[i].l+=0.01;
+            if (this.color_points[i].l >= 100) {
+                this.points.splice(i, 1);
+                this.color_points.splice(i, 1);
+            }
+        }
     }
 
-    
-    GetLine() {
-        return this.line 
-    }
-    Update(vec3){
-        this.points.push(vec3)
-        this.material.color.setHSL( this.clock.getElapsedTime(), 1, 0.5 );
-        this.geometry.dispose()
-        this.geometry = new THREE.BufferGeometry().setFromPoints(this.points);
-        this.line.geometry = this.geometry;        
-    }
 }
